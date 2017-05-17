@@ -1,0 +1,266 @@
+<?xml version="1.0"?>
+<!-- Configuration file for WebGrab+Plus, the incremental Electronic-Program-Guide web grabber
+by Jan van Straaten, December 2011
+Version V1.1.1 -->
+
+<settings>
+  <!-- filename
+The path (required) + filename where the epgguide xml file is /will be located. It must include drive and folder. Like C:\ProgramData\ServerCare\WebGrab\guide.xml
+If the file already exist (from last run or from another xmltv source) it will read it and use what fits the requested output. In that case the file will be updated. If no such file exist it will be created.
+Change the following to your own needs  :
+-->
+ <filename>/data/guide.xml</filename>
+
+  <!-- modes:
+d or debug    saves the output xmltv file in a file with -debug addition in the file name . The original xmltv file will be kept.
+m or measure  measures the time for each updated show or new show added
+n = nomark    disables the update-type marking (n) (c) (g) (r) at the end of the description
+v or verify   verifies the result following a channel update
+w or wget     use wget as grab engine (might improve site recognition in rare cases)
+Note that modes can be added in one line, separated by comma's or spaces, or both.
+-->
+  <mode>m</mode>
+
+  <!-- postprocess:
+  Optional , specifies which of the available postprocesses should run.
+  syntax: <postprocess run="" grab="">processname</postprocess>
+
+(optional) grab="yes" or "y" or "true" or "on" : grabs epg first (default)     ; "no" or "n" or "false" or "off" : skip epg grabbing
+(optional) run="yes" or "y" or "true" or "on" : runs the postprocess (default) ; "no" or "n" or "false" or "off" : do not run post process
+processname: the process to run :
+processname = mdb runs a build in movie database grabber (read / adapt  ...\mdb\mdb.confif.xml
+processname = rex runs a postprocess that re-allocates xmltv elements (read / adapt  ...\rex\rex.config.xml)
+examples:
+  <postprocess run="on" grab="on">mdb</postprocess>  grabs first , then run mdb
+  <postprocess>mdb</postprocess>  same as above (uses defaults for grab and run)
+  <postprocess grab="no">rex</postprocess>  runs rex without grab (existing xmltv file)
+-->
+  <postprocess run="y" grab="y">n</postprocess>
+
+  <!-- proxy:
+This setting is only required if your computer is connected to internet behind a proxy
+specify proxy address as ip:port like <proxy>192.168.2.4:8080</proxy>
+or as <proxy>automatic</proxy> which attempts to read the proxy address from your connection settings. If your proxy requires a username and password, add them like
+<proxy user="username" password="password">192.168.2.4:8080</proxy>
+  <proxy>192.168.2.2:8080</proxy>
+-->
+<proxy>automatic</proxy>
+
+  <!-- user agent:
+The user agent string that is sent to the tvguide website. Some sites require this. Valid values are either
+, in which case the program generates a random string, or any other string like <user-agent>Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US)</user-agent>  <user-agent>random</user-agent><user-agent>Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US)</user-agent><user-agent>Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3</user-agent>
+-->
+<user-agent>Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; yie9)</user-agent>
+
+
+  <!-- logging:
+simply put 'on' in there to start logging, anything else will turn it off
+-->
+  <logging>on</logging>
+
+  <!--retry
+The most simple form of retry defines the amount of times the grabber engine should attempt to capture a web page before giving up and continuing with the next page, like <retry>4</retry>
+It is also the place to specify delays between retries and the grabbing of html pages with the following attributes: timeout; the delay between retries (default is 10 sec), channel-delay; the delay between subsequent channels (default is 0), index-delay; the delay between the grabbing of index pages (default is 0), show-delay; the delay between the grabbing of detail show pages (default is 0). In the most complete version it will look like this:
+<retry time-out="5" channel-delay="5" index-delay="1" show-delay="1">4</retry> show-delay="2"
+-->
+  <retry time-out="5">4</retry>
+
+  <!--skip
+It takes two values H,m  separated by a comma:
+The first H : if a show takes more than H hours, it's either tellsell or other commercial fluff, or simply a mistake or error, we want to skip such shows.
+The second m : if a show is less or equal than m minutes it is probably an announcement , in any case not a real show.
+When entered as <skip></skip> the defaults are 12 hours, 1 minute, same as <skip>12,1</skip>. To disable this function enter  or just leave out this entry completely<skip>14, 1</skip><skip>16,1</skip>
+-->
+
+<skip>12, 5</skip>
+
+  <!--timespan
+The timespan for which shows will be grabbed.
+It takes one or two values separated by a comma or a space. The first is the number of days (including today) to download, note that 0 is today. The second (optional) is a time specified between 0:00 and 24:00 which will reduce the download to only the one show (per day) which is scheduled around the specified time. Any value between start time (including) and stop time will do
+This -one-show-only mode is helpfull if a SiteIni file needs to be debugged
+-->
+  <timespan>7</timespan>
+
+  <!-- update mode
+i or incremental     only updates of changes , gabs, repairs and new shows
+l or light           forces update of today and new shows, rest as incremental
+s or smart           forces update of today and tomorrow and new shows, rest as light
+f or full or force   forces full update
+If one of these values is entered here it will apply to all channels selected for update
+(see channel).  This value overrules the value of 'update' for in the individual channels
+If no value is entered here the individual 'update' values from the channellist are taken
+-->
+  <update>i</update>
+
+  <!-- The channel-list :
+Each channel to be grabbed has a separate entry in the list, the most common form is:
+<channel update=.. site=.. site_id=.. xmltv_id=..  >display-name</channel>
+Besides this form, there is a possibility to specify special channels like 'combi-channels' and 'timeoffset-channels', see further down for more information-->
+  <!-- Channel list files :
+The easiest way to compose this channel-list is to copy the required channels from the channel-list files which can be found in the SiteIni.Pack for nearly every supported tvguide site. -->
+  <!-- update :
+The mode values here can be set for each channel differently if not overruled by the general update setting (see above). Allowed values are as the same as the general update setting. Any other value will be ignored.  If any of the allowed values of 'update' is entered, this channel will be updated , no value no update ! In that case the epg data of that channel will remain as it is.  -->
+  <!-- site:
+The website to be used to get the EPG from. The value entered here is the name of the .ini file that supplies the specific parameters for the site without .ini extension.
+e.g tvgids.nl.ini becomes site="tvgids.nl" and gids.publiekeomroep.nl.ini becomes site="gids.publiekeomroep.nl".-->
+  <!-- site_id:
+This is the number or text used by the site as reference to the correct html page for this channel. It is used by the program to compose the url for the shows for a channel. For nearly all sites supported by the program a channel-list file is provided in the siteini-pack. It list most of the available channels including this site_id -->
+  <!-- xmltv_id :
+The xmltv_id can be any string that suits your needs, you will find it back as the "channel" in your xml file as in :
+<programme start="20100218072500 +0200" stop="20100218075500 +0200" channel="RTL7-id"> -->
+  <!-- display-name: This will be used in the xmltv file to give the channel's displayname. That is the name the epgprogram  will use to display the channel. Give it any value you like. It is no problem if site_id , xmltv_id and display-name are equal -->
+  <!-- Important !
+Be aware that all channels entered here will be included in the xmltv channel table even if no update is requested. This allows the update of individual channels without affecting the data of the others in the list. A channel not in this list will be removed from your xmltv listing together with all the show data of it if found there by WebGrab+Plus. (If you use WebGrab+Plus with a xmltv input file from another source, it will remove all data from channels not in this list and create an entry for new channels)
+WebGrab+Plus uses the xmltv_id to identify a channel in an existing xmltv file.
+-->
+    <channel update="i" site="movistarplus.es" site_id="TVE" xmltv_id="LA 1">LA 1</channel>
+    <channel update="i" site="movistarplus.es" site_id="LA2" xmltv_id="LA 2">LA 2</channel>
+    <channel update="i" site="movistarplus.es" site_id="A3" xmltv_id="Antena 3">Antena 3</channel>
+    <channel update="i" site="movistarplus.es" site_id="C4" xmltv_id="Cuatro">Cuatro</channel>
+    <channel update="i" site="movistarplus.es" site_id="T5" xmltv_id="Telecinco">Telecinco</channel>
+    <channel update="i" site="movistarplus.es" site_id="SEXTA" xmltv_id="La Sexta">La Sexta</channel>
+    <channel update="i" site="movistarplus.es" site_id="MV3" xmltv_id="#0">#0</channel>
+    <channel update="i" site="movistarplus.es" site_id="CPSER" xmltv_id="Movistar Series">Movistar Series</channel>
+    <channel update="i" site="movistarplus.es" site_id="MV2" xmltv_id="Movistar Series Xtra">Movistar Series Xtra</channel>
+    <channel update="i" site="movistarplus.es" site_id="FOXGE" xmltv_id="Fox">Fox</channel>
+    <channel update="i" site="movistarplus.es" site_id="AXN" xmltv_id="AXN">AXN</channel>
+    <channel update="i" site="movistarplus.es" site_id="TNT" xmltv_id="TNT">TNT</channel>
+    <channel update="i" site="movistarplus.es" site_id="PCM" xmltv_id="Comedy Central">Comedy Central</channel>
+    <channel update="i" site="movistarplus.es" site_id="CL13" xmltv_id="Calle 13">Calle 13</channel>
+    <channel update="i" site="movistarplus.es" site_id="COSMO" xmltv_id="COSMO">COSMO</channel>
+    <channel update="i" site="movistarplus.es" site_id="AMC" xmltv_id="AMC">AMC</channel>
+    <channel update="i" site="movistarplus.es" site_id="FOXCR" xmltv_id="Fox Life">Fox Life</channel>
+    <channel update="i" site="movistarplus.es" site_id="SET" xmltv_id="AXN White">AXN White</channel>
+    <channel update="i" site="movistarplus.es" site_id="SCI-FI" xmltv_id="SYFY">SYFY</channel>
+    <channel update="i" site="movistarplus.es" site_id="NONSTP" xmltv_id="Non Stop People">Non Stop People</channel>
+    <channel update="i" site="movistarplus.es" site_id="MTV" xmltv_id="MTV">MTV</channel>
+    <channel update="i" site="movistarplus.es" site_id="FDFIC" xmltv_id="Factoría de Ficción">Factoría de Ficción</channel>
+    <channel update="i" site="movistarplus.es" site_id="NEOX" xmltv_id="Neox">Neox</channel>
+    <channel update="i" site="movistarplus.es" site_id="ATRESS" xmltv_id="Atreseries">Atreseries</channel>
+    <channel update="i" site="movistarplus.es" site_id="ENERGY" xmltv_id="Energy">Energy</channel>
+    <channel update="i" site="movistarplus.es" site_id="MV1" xmltv_id="Movistar Estrenos">Movistar Estrenos</channel>
+    <channel update="i" site="movistarplus.es" site_id="CPXTRA" xmltv_id="Movistar Xtra">Movistar Xtra</channel>
+    <channel update="i" site="movistarplus.es" site_id="CPACCI" xmltv_id="Movistar Acción">Movistar Acción</channel>
+    <channel update="i" site="movistarplus.es" site_id="CPCOME" xmltv_id="Movistar Comedia">Movistar Comedia</channel>
+    <channel update="i" site="movistarplus.es" site_id="CPCOLE" xmltv_id="Movistar DCine">Movistar DCine</channel>
+    <channel update="i" site="movistarplus.es" site_id="DCESP" xmltv_id="Movistar Cine Español">Movistar Cine Español</channel>
+    <channel update="i" site="movistarplus.es" site_id="TCM" xmltv_id="TCM">TCM</channel>
+    <channel update="i" site="movistarplus.es" site_id="HOLLYW" xmltv_id="Hollywood">Hollywood</channel>
+    <channel update="i" site="movistarplus.es" site_id="SUNDAN" xmltv_id="Sundance">Sundance</channel>
+    <channel update="i" site="movistarplus.es" site_id="DARK" xmltv_id="DARK">DARK</channel>
+    <channel update="i" site="movistarplus.es" site_id="13TV" xmltv_id="13 TV">13 TV</channel>
+    <channel update="i" site="movistarplus.es" site_id="TEN" xmltv_id="Ten">Ten</channel>
+    <channel update="i" site="movistarplus.es" site_id="PARCH" xmltv_id="Paramount Channel">Paramount Channel</channel>
+    <channel update="i" site="movistarplus.es" site_id="DEPORT" xmltv_id="DEPORTES">DEPORTES</channel>
+    <channel update="i" site="movistarplus.es" site_id="CPFUT" xmltv_id="Movistar Fútbol">Movistar Fútbol</channel>
+    <channel update="i" site="movistarplus.es" site_id="CPPART" xmltv_id="Movistar Partidazo">Movistar Partidazo</channel>
+    <channel update="i" site="movistarplus.es" site_id="BELIGA" xmltv_id="Bein LaLiga">Bein LaLiga</channel>
+    <channel update="i" site="movistarplus.es" site_id="BELIG1" xmltv_id="Bein LaLiga 1">Bein LaLiga 1</channel>
+    <channel update="i" site="movistarplus.es" site_id="BELIG2" xmltv_id="Bein LaLiga 2">Bein LaLiga 2</channel>
+    <channel update="i" site="movistarplus.es" site_id="CHUEFA" xmltv_id="beIN SPORTS ">beIN SPORTS </channel>
+    <channel update="i" site="movistarplus.es" site_id="BEMAX1" xmltv_id="Bein Max1">Bein Max1</channel>
+    <channel update="i" site="movistarplus.es" site_id="REALM" xmltv_id="Real Madrid TV">Real Madrid TV</channel>
+    <channel update="i" site="movistarplus.es" site_id="BARNA" xmltv_id="Barça TV">Barça TV</channel>
+    <channel update="i" site="movistarplus.es" site_id="CPDEP" xmltv_id="Movistar Deportes 1">Movistar Deportes 1</channel>
+    <channel update="i" site="movistarplus.es" site_id="CPD2" xmltv_id="Movistar Deportes 2">Movistar Deportes 2</channel>
+    <channel update="i" site="movistarplus.es" site_id="MVF1" xmltv_id="Movistar Fórmula 1">Movistar Fórmula 1</channel>
+    <channel update="i" site="movistarplus.es" site_id="MVMTGP" xmltv_id="Movistar Moto GP">Movistar Moto GP</channel>
+    <channel update="i" site="movistarplus.es" site_id="GOLF+" xmltv_id="Movistar Golf">Movistar Golf</channel>
+    <channel update="i" site="movistarplus.es" site_id="ESP" xmltv_id="Eurosport 1">Eurosport 1</channel>
+    <channel update="i" site="movistarplus.es" site_id="ESP2" xmltv_id="Eurosport 2">Eurosport 2</channel>
+    <channel update="i" site="movistarplus.es" site_id="GOL" xmltv_id="GOL">GOL</channel>
+    <channel update="i" site="movistarplus.es" site_id="GOLHD" xmltv_id="GOL HD">GOL HD</channel>
+    <channel update="i" site="movistarplus.es" site_id="TDEP" xmltv_id="Teledeporte">Teledeporte</channel>
+    <channel update="i" site="movistarplus.es" site_id="FUTREP" xmltv_id="Canal Fútbol Replay">Canal Fútbol Replay</channel>
+    <channel update="i" site="movistarplus.es" site_id="CAZPES" xmltv_id="Caza y Pesca">Caza y Pesca</channel>
+    <channel update="i" site="movistarplus.es" site_id="IBERAL" xmltv_id="Iberalia TV">Iberalia TV</channel>
+    <channel update="i" site="movistarplus.es" site_id="CFERIA" xmltv_id="Toros TV">Toros TV</channel>
+    <channel update="i" site="movistarplus.es" site_id="ARTHUR" xmltv_id="Multideporte 1">Multideporte 1</channel>
+    <channel update="i" site="movistarplus.es" site_id="NATGEO" xmltv_id="National Geographic">National Geographic</channel>
+    <channel update="i" site="movistarplus.es" site_id="NATGW" xmltv_id="Nat Geo Wild">Nat Geo Wild</channel>
+    <channel update="i" site="movistarplus.es" site_id="HIST" xmltv_id="Historia">Historia</channel>
+    <channel update="i" site="movistarplus.es" site_id="DCR" xmltv_id="Discovery">Discovery</channel>
+    <channel update="i" site="movistarplus.es" site_id="ODISEA" xmltv_id="Odisea">Odisea</channel>
+    <channel update="i" site="movistarplus.es" site_id="BIOGRA" xmltv_id="A&amp;E">A&amp;E</channel>
+    <channel update="i" site="movistarplus.es" site_id="VJR" xmltv_id="Viajar">Viajar</channel>
+    <channel update="i" site="movistarplus.es" site_id="DCRMAX" xmltv_id="Discovery Max">Discovery Max</channel>
+    <channel update="i" site="movistarplus.es" site_id="CYM" xmltv_id="Crimen + Investigación">Crimen + Investigación</channel>
+    <channel update="i" site="movistarplus.es" site_id="CCTV-E" xmltv_id="CCTV Español">CCTV Español</channel>
+    <channel update="i" site="movistarplus.es" site_id="CACOC" xmltv_id="Canal Cocina">Canal Cocina</channel>
+    <channel update="i" site="movistarplus.es" site_id="DECASA" xmltv_id="Canal Decasa">Canal Decasa</channel>
+    <channel update="i" site="movistarplus.es" site_id="DKISS" xmltv_id="DKISS">DKISS</channel>
+    <channel update="i" site="movistarplus.es" site_id="DIVINI" xmltv_id="Divinity">Divinity</channel>
+    <channel update="i" site="movistarplus.es" site_id="NOVA" xmltv_id="Nova">Nova</channel>
+    <channel update="i" site="movistarplus.es" site_id="MEGA" xmltv_id="Mega">Mega</channel>
+    <channel update="i" site="movistarplus.es" site_id="BEMAD" xmltv_id="BE MAD">BE MAD</channel>
+    <channel update="i" site="movistarplus.es" site_id="GARAGE" xmltv_id="El Garage TV">El Garage TV</channel>
+    <channel update="i" site="movistarplus.es" site_id="ORBE21" xmltv_id="Canal Orbe 21">Canal Orbe 21</channel>
+    <channel update="i" site="movistarplus.es" site_id="BABY" xmltv_id="Baby TV">Baby TV</channel>
+    <channel update="i" site="movistarplus.es" site_id="PLAYDC" xmltv_id="Disney Junior">Disney Junior</channel>
+    <channel update="i" site="movistarplus.es" site_id="PANDA" xmltv_id="Canal Panda">Canal Panda</channel>
+    <channel update="i" site="movistarplus.es" site_id="NICKJR" xmltv_id="NICK JR">NICK JR</channel>
+    <channel update="i" site="movistarplus.es" site_id="NICK" xmltv_id="Nickelodeon">Nickelodeon</channel>
+    <channel update="i" site="movistarplus.es" site_id="DCHXD" xmltv_id="Disney XD">Disney XD</channel>
+    <channel update="i" site="movistarplus.es" site_id="DCH" xmltv_id="Disney Channel">Disney Channel</channel>
+    <channel update="i" site="movistarplus.es" site_id="BOING" xmltv_id="Boing">Boing</channel>
+    <channel update="i" site="movistarplus.es" site_id="CLANTV" xmltv_id="Clan TVE">Clan TVE</channel>
+    <channel update="i" site="movistarplus.es" site_id="40TV" xmltv_id="Los40">Los40</channel>
+    <channel update="i" site="movistarplus.es" site_id="VH1" xmltv_id="VH1">VH1</channel>
+    <channel update="i" site="movistarplus.es" site_id="M2" xmltv_id="MTV ROCKS">MTV ROCKS</channel>
+    <channel update="i" site="movistarplus.es" site_id="MEZZO" xmltv_id="Mezzo">Mezzo</channel>
+    <channel update="i" site="movistarplus.es" site_id="MEZOHD" xmltv_id="Mezzo Live HD">Mezzo Live HD</channel>
+    <channel update="i" site="movistarplus.es" site_id="CLASSD" xmltv_id="Classica">Classica</channel>
+    <channel update="i" site="movistarplus.es" site_id="CLASSI" xmltv_id="Classica HD">Classica HD</channel>
+    <channel update="i" site="movistarplus.es" site_id="PBOY" xmltv_id="Playboy TV">Playboy TV</channel>
+    <channel update="i" site="movistarplus.es" site_id="24H" xmltv_id="24 Horas">24 Horas</channel>
+    <channel update="i" site="movistarplus.es" site_id="BBC" xmltv_id="BBC World">BBC World</channel>
+    <channel update="i" site="movistarplus.es" site_id="CNN" xmltv_id="CNN Int">CNN Int</channel>
+    <channel update="i" site="movistarplus.es" site_id="FOXNWS" xmltv_id="Fox News">Fox News</channel>
+    <channel update="i" site="movistarplus.es" site_id="ENW" xmltv_id="Euronews">Euronews</channel>
+    <channel update="i" site="movistarplus.es" site_id="ALJAZE" xmltv_id="Al Jazeera English">Al Jazeera English</channel>
+    <channel update="i" site="movistarplus.es" site_id="FRA EN" xmltv_id="FRANCE 24">FRANCE 24</channel>
+    <channel update="i" site="movistarplus.es" site_id="RTESP" xmltv_id="RT Español">RT Español</channel>
+    <channel update="i" site="movistarplus.es" site_id="NBC" xmltv_id="CNBC">CNBC</channel>
+    <channel update="i" site="movistarplus.es" site_id="TV5" xmltv_id="TV5MONDE">TV5MONDE</channel>
+    <channel update="i" site="movistarplus.es" site_id="BL" xmltv_id="Bloomberg">Bloomberg</channel>
+    <channel update="i" site="movistarplus.es" site_id="INTECO" xmltv_id="Intereconomía TV">Intereconomía TV</channel>
+    <channel update="i" site="movistarplus.es" site_id="SKYNW" xmltv_id="Sky News">Sky News</channel>
+    <channel update="i" site="movistarplus.es" site_id="LIBDIG" xmltv_id="Libertad Digital">Libertad Digital</channel>
+    <channel update="i" site="movistarplus.es" site_id="RUSSIA" xmltv_id="RT">RT</channel>
+    <channel update="i" site="movistarplus.es" site_id="312" xmltv_id="i24news">i24news</channel>
+    <channel update="i" site="movistarplus.es" site_id="CNCWOR" xmltv_id="CNC World">CNC World</channel>
+    <channel update="i" site="movistarplus.es" site_id="TELEFE" xmltv_id="Telefe Internacional">Telefe Internacional</channel>
+    <channel update="i" site="movistarplus.es" site_id="GALAV" xmltv_id="Canal de las Estrellas">Canal de las Estrellas</channel>
+    <channel update="i" site="movistarplus.es" site_id="CARACO" xmltv_id="Caracol TV">Caracol TV</channel>
+    <channel update="i" site="movistarplus.es" site_id="TVREC" xmltv_id="TV RECORD">TV RECORD</channel>
+    <channel update="i" site="movistarplus.es" site_id="CHILE" xmltv_id="TV Chile">TV Chile</channel>
+    <channel update="i" site="movistarplus.es" site_id="COLOMB" xmltv_id="TV Colombia">TV Colombia</channel>
+    <channel update="i" site="movistarplus.es" site_id="AZMUND" xmltv_id="AZ Mundo">AZ Mundo</channel>
+    <channel update="i" site="movistarplus.es" site_id="CUBAV" xmltv_id="Cubavisión">Cubavisión</channel>
+    <channel update="i" site="movistarplus.es" site_id="TLESUR" xmltv_id="Telesur">Telesur</channel>
+    <channel update="i" site="movistarplus.es" site_id="EWTN" xmltv_id="EWTN">EWTN</channel>
+    <channel update="i" site="movistarplus.es" site_id="PHOEN" xmltv_id="Phoenix Cine">Phoenix Cine</channel>
+    <channel update="i" site="movistarplus.es" site_id="INFONW" xmltv_id="Infonews Channel">Infonews Channel</channel>
+    <channel update="i" site="movistarplus.es" site_id="ARIRAN" xmltv_id="ARIRANG TV">ARIRANG TV</channel>
+    <channel update="i" site="movistarplus.es" site_id="NHK" xmltv_id="NHK World TV">NHK World TV</channel>
+    <channel update="i" site="movistarplus.es" site_id="ANTV" xmltv_id="Canal Sur Andalucía">Canal Sur Andalucía</channel>
+    <channel update="i" site="movistarplus.es" site_id="TVG" xmltv_id="TV Galicia">TV Galicia</channel>
+    <channel update="i" site="movistarplus.es" site_id="TVC" xmltv_id="TV3 Cat">TV3 Cat</channel>
+    <channel update="i" site="movistarplus.es" site_id="ETB" xmltv_id="ETB Sat">ETB Sat</channel>
+    <channel update="i" site="movistarplus.es" site_id="ARAGON" xmltv_id="Aragón TV Int">Aragón TV Int</channel>
+    <channel update="i" site="movistarplus.es" site_id="C33" xmltv_id="Canal 33">Canal 33</channel>
+    <channel update="i" site="movistarplus.es" site_id="ESP3" xmltv_id="Esport 3">Esport 3</channel>
+    <channel update="i" site="movistarplus.es" site_id="3_24" xmltv_id="3 24">3 24</channel>
+    <channel update="i" site="movistarplus.es" site_id="LAXARX" xmltv_id="La Xarxa Televisions">La Xarxa Televisions</channel>
+    <channel update="i" site="movistarplus.es" site_id="TQ1" xmltv_id="Alquiler  1">Alquiler  1</channel>
+    <channel update="i" site="movistarplus.es" site_id="TQ2" xmltv_id="Alquiler  2">Alquiler  2</channel>
+    <channel update="i" site="movistarplus.es" site_id="TQ3" xmltv_id="Alquiler  3">Alquiler  3</channel>
+    <channel update="i" site="movistarplus.es" site_id="TQ4" xmltv_id="Alquiler 4">Alquiler 4</channel>
+    <channel update="i" site="movistarplus.es" site_id="TQ5" xmltv_id="Alquiler  5">Alquiler  5</channel>
+    <channel update="i" site="movistarplus.es" site_id="TQ6" xmltv_id="Alquiler  6">Alquiler  6</channel>
+    <channel update="i" site="movistarplus.es" site_id="HDTQ10" xmltv_id="Alquiler HD">Alquiler HD</channel>
+    <channel update="i" site="movistarplus.es" site_id="HDTQ2" xmltv_id="Alquiler 2 HD">Alquiler 2 HD</channel>
+    <channel update="i" site="movistarplus.es" site_id="MFUT5" xmltv_id="MULTIFUT. 5">MULTIFUT. 5</channel>
+    <channel update="i" site="movistarplus.es" site_id="MULTI6" xmltv_id="Multideporte 6">Multideporte 6</channel>
+    <channel update="i" site="movistarplus.es" site_id="MULTI9" xmltv_id="Multideporte 7">Multideporte 7</channel>
+</settings>
