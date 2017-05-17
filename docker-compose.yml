@@ -1,0 +1,4 @@
+guia-movistar:
+  image: elboletaire/movistar-plus
+  volumes:
+  - ./:/data
