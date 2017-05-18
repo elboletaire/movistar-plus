@@ -4,7 +4,7 @@ Webgrabplus configurado para movistar+
 Contenedor de docker de [Webgrabplus][webgrabplus] configurado para obtener la guía de
 movistar+ de modo incremental.
 
-Dicho de otro modo, con un sólo comando podéis descargar la guía de TV en
+Dicho de otro modo, con un sólo comando puedes descargar la guía de TV en
 formato [Xml TV][xmltv], para utilizarla en programas como [Kodi][kodi] o
 [Emby][emby].
 
@@ -26,7 +26,7 @@ Eso generará un fichero `guide.xml` en el directorio actual con la información
 de los próximos 8 días. Al ser incremental, cada vez que ejecutes el comando
 añadirá la nueva información sin borrar la anterior.
 
-No obstante, recomiendo que creéis un directorio donde contener el fichero
+No obstante, recomiendo que crees un directorio donde contener el fichero
 `guide.xml` para evitar problemas de permisos:
 
 ~~~bash
