@@ -22,6 +22,14 @@ Eso generará un fichero `guide.xml` en el directorio actual con la información
 de los próximos 8 días. Al ser incremental, cada vez que ejecutes el comando
 añadirá la nueva información sin borrar la anterior.
 
+No obstante, recomiendo que creéis un directorio donde contener el fichero
+`guide.xml` para evitar problemas de permisos:
+
+~~~bash
+mkdir tv-guide
+docker run -it --rm -v $PWD/tv-guide:/data elboletaire/movistar-plus
+~~~
+
 Licencia
 --------
 
