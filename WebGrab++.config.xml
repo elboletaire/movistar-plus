@@ -263,4 +263,7 @@ WebGrab+Plus uses the xmltv_id to identify a channel in an existing xmltv file.
     <channel update="i" site="movistarplus.es" site_id="MFUT5" xmltv_id="MULTIFUT. 5">MULTIFUT. 5</channel>
     <channel update="i" site="movistarplus.es" site_id="MULTI6" xmltv_id="Multideporte 6">Multideporte 6</channel>
     <channel update="i" site="movistarplus.es" site_id="MULTI9" xmltv_id="Multideporte 7">Multideporte 7</channel>
+    <!-- el mundo -->
+    <channel update="i" site="elmundo.es" site_id="541" xmltv_id="Super 3">Super 3</channel>
+    <channel update="i" site="elmundo.es" site_id="43" xmltv_id="TV3">TV3</channel>
 </settings>
