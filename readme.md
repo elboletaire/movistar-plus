@@ -4,6 +4,10 @@ Webgrabplus configurado para movistar+
 Contenedor de docker de [Webgrabplus][webgrabplus] configurado para obtener la guía de
 movistar+ de modo incremental.
 
+Dicho de otro modo, con un sólo comando podéis descargar la guía de TV en
+formato [Xml TV][xmltv], para utilizarla en programas como [Kodi][kodi] o
+[Emby][emby].
+
 Requisitos
 ----------
 
@@ -49,4 +53,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 [webgrabplus]: http://webgrabplus.com/
+[xmltv]: http://wiki.xmltv.org/index.php/XMLTVFormat
+[kodi]: https://kodi.tv
+[emby]: https://emby.media
 [docker]: https://docker.com
