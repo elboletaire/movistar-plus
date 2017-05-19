@@ -113,12 +113,14 @@ The xmltv_id can be any string that suits your needs, you will find it back as t
 Be aware that all channels entered here will be included in the xmltv channel table even if no update is requested. This allows the update of individual channels without affecting the data of the others in the list. A channel not in this list will be removed from your xmltv listing together with all the show data of it if found there by WebGrab+Plus. (If you use WebGrab+Plus with a xmltv input file from another source, it will remove all data from channels not in this list and create an entry for new channels)
 WebGrab+Plus uses the xmltv_id to identify a channel in an existing xmltv file.
 -->
-    <channel update="i" site="movistarplus.es" site_id="TVE" xmltv_id="LA 1">LA 1</channel>
-    <channel update="i" site="movistarplus.es" site_id="LA2" xmltv_id="LA 2">LA 2</channel>
+    <channel update="i" site="elmundo.es" site_id="3" xmltv_id="La 1">La 1</channel>
+    <channel update="i" site="elmundo.es" site_id="4" xmltv_id="La 2">La 2</channel>
+    <channel update="i" site="elmundo.es" site_id="18" xmltv_id="La 1 Catalunya">La 1 Catalunya</channel>
+    <channel update="i" site="elmundo.es" site_id="280" xmltv_id="La 2 Catalunya">La 2 Catalunya</channel>
     <channel update="i" site="movistarplus.es" site_id="A3" xmltv_id="Antena 3">Antena 3</channel>
     <channel update="i" site="movistarplus.es" site_id="C4" xmltv_id="Cuatro">Cuatro</channel>
     <channel update="i" site="movistarplus.es" site_id="T5" xmltv_id="Telecinco">Telecinco</channel>
-    <channel update="i" site="movistarplus.es" site_id="SEXTA" xmltv_id="La Sexta">La Sexta</channel>
+    <channel update="i" site="elmundo.es" site_id="510" xmltv_id="laSexta">laSexta</channel>
     <channel update="i" site="movistarplus.es" site_id="MV3" xmltv_id="#0">#0</channel>
     <channel update="i" site="movistarplus.es" site_id="CPSER" xmltv_id="Movistar Series">Movistar Series</channel>
     <channel update="i" site="movistarplus.es" site_id="MV2" xmltv_id="Movistar Series Xtra">Movistar Series Xtra</channel>
