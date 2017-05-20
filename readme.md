@@ -1,5 +1,8 @@
 Webgrabplus configurado para movistar+
 ======================================
+[![Docker Automated buil][docker build svg]][hub]
+[![Docker pulls][docker pulls svg]][hub]
+
 
 Contenedor de docker de [Webgrabplus][webgrabplus] configurado para obtener la guía de
 movistar+ de modo incremental.
@@ -57,3 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 [kodi]: https://kodi.tv
 [emby]: https://emby.media
 [docker]: https://docker.com
+[hub]: http://hub.docker.com/r/elboletaire/movistar-plus
+[docker build svg]: https://img.shields.io/docker/automated/elboletaire/movistar-plus.svg?style=flat-square
+[docker pulls svg]: https://img.shields.io/docker/pulls/elboletaire/movistar-plus.svg?style=flat-square
