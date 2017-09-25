@@ -182,7 +182,7 @@ WebGrab+Plus uses the xmltv_id to identify a channel in an existing xmltv file.
     <channel update="i" site="elpais.com" site_id="643" xmltv_id="La 8">La 8</channel>
     <channel update="i" site="elpais.com" site_id="510" xmltv_id="laSexta">laSexta</channel>
     <channel update="i" site="sincroguia.tv" site_id="603" xmltv_id="Libertad Digital TV">Libertad Digital TV</channel>
-    <channel update="i" site="elpais.com" site_id="663" xmltv_id="Mega">Mega</channel>
+    <channel update="i" site="elpais.com" site_id="841" xmltv_id="Mega">Mega</channel>
     <channel update="i" site="elpais.com" site_id="159" xmltv_id="MTV España">MTV España</channel>
     <channel update="i" site="elpais.com" site_id="151" xmltv_id="National Geographic">National Geographic</channel>
     <channel update="i" site="elpais.com" site_id="681" xmltv_id="National Geographic Wild">National Geographic Wild</channel>
