@@ -1,11 +1,13 @@
-FROM tobbenb/webgrabplusplus:latest
+FROM linuxserver/webgrabplus:latest
 
-MAINTAINER Òscar Casajuana <elboletaire@underave.net>
+LABEL maintainer="Òscar Casajuana <elboletaire@underave.net>"
 
-ADD providers/* WebGrab++.config.xml /config/
+ADD config/WebGrab++.config.xml config/providers/* /config/
 
 ENV TZ Europe/Madrid
 
 RUN echo $TZ > /etc/timezone
 
-ENTRYPOINT ["/etc/my_init.d/startup.sh"]
+RUN chmod +x /defaults/update.sh
+
+ENTRYPOINT [ "/defaults/update.sh" ]

@@ -1,4 +1,11 @@
-guia-movistar:
-  image: elboletaire/movistar-plus
-  volumes:
-  - ./:/data
+version: '3.6'
+
+services:
+  guia-movistar:
+    image: elboletaire/movistar-plus
+    build: ./
+    environment:
+      PUID: $UID
+      PGID: $GID
+    volumes:
+    - ./data:/data
