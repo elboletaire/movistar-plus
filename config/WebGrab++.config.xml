@@ -92,8 +92,9 @@ If no value is entered here the individual 'update' values from the channellist 
 -->
   <update>i</update>
     <channel update="i" site="plus.es" site_id="MV3" xmltv_id="#0">#0</channel>>
+    <channel update="i" site="plus.es" site_id="VAMOSD" xmltv_id="#Vamos">#Vamos</channel>>
     <channel update="i" site="plus.es" site_id="13TV" xmltv_id="13tv">13 TV</channel>
-    <channel update="i" site="plus.es" site_id="3_24" xmltv_id="Canal 3/24">3/24</channel>
+    <channel update="i" site="plus.es" site_id="3_24" xmltv_id="3/24">3/24</channel>
     <channel update="i" site="plus.es" site_id="BIOGRA" xmltv_id="A&amp;E">A&amp;E</channel>
     <channel update="i" site="plus.es" site_id="ALJAZE" xmltv_id="Al Jazeera English">Al Jazeera English</channel>
     <channel update="i" site="plus.es" site_id="AMC" xmltv_id="AMC">AMC</channel>
@@ -134,7 +135,7 @@ If no value is entered here the individual 'update' values from the channellist 
     <channel update="i" site="plus.es" site_id="DKISS" xmltv_id="DKISS">DKISS</channel>
     <channel update="i" site="plus.es" site_id="ENERGY" xmltv_id="Energy">Energy</channel>
     <channel update="i" site="plus.es" site_id="ESP3" xmltv_id="Esport 3">Esport 3</channel>
-    <channel update="i" site="plus.es" site_id="ETB" xmltv_id="ETB 1">ETB 1</channel>
+    <channel update="i" site="plus.es" site_id="ETB1" xmltv_id="ETB 1">ETB 1</channel>
     <channel update="i" site="plus.es" site_id="ENW" xmltv_id="Euronews">Euronews</channel>
     <channel update="i" site="plus.es" site_id="ESP" xmltv_id="Eurosport">Eurosport</channel>
     <channel update="i" site="plus.es" site_id="ESP2" xmltv_id="Eurosport 2">Eurosport 2</channel>
@@ -165,6 +166,7 @@ If no value is entered here the individual 'update' values from the channellist 
     <channel update="i" site="plus.es" site_id="CPFUT" xmltv_id="Movistar Fútbol">Movistar Fútbol</channel>
     <channel update="i" site="plus.es" site_id="CPPART" xmltv_id="Movistar Partidazo">Movistar Partidazo</channel>
     <channel update="i" site="plus.es" site_id="CPSER" xmltv_id="Movistar Series">Movistar Series</channel>
+    <channel update="i" site="plus.es" site_id="MV2" xmltv_id="Movistar Seriesmanía">Movistar Seriesmanía</channel>
     <channel update="i" site="plus.es" site_id="CPXTRA" xmltv_id="Movistar Xtra">Movistar Xtra</channel>
     <channel update="i" site="plus.es" site_id="M2" xmltv_id="MTV España">MTV España</channel>
     <channel update="i" site="plus.es" site_id="NATGEO" xmltv_id="National Geographic">National Geographic</channel>
@@ -187,6 +189,7 @@ If no value is entered here the individual 'update' values from the channellist 
     <channel update="i" site="plus.es" site_id="TNT" xmltv_id="TNT">TNT</channel>
     <channel update="i" site="plus.es" site_id="C33" xmltv_id="Canal 33">Super 3/33</channel>
     <channel update="i" site="plus.es" site_id="TVC" xmltv_id="TV3">TV3</channel>
+    <channel update="i" site="plus.es" site_id="TV3CAT" xmltv_id="TV3 CAT">TV3 CAT</channel>
     <channel update="i" site="plus.es" site_id="TV5" xmltv_id="TV5 Monde">TV5 Monde</channel>
     <channel update="i" site="plus.es" site_id="VJR" xmltv_id="Viajar">Viajar</channel>
     <channel update="i" site="plus.es" site_id="VH1" xmltv_id="VH1">VH1</channel>
